@@ -1,0 +1,10 @@
+# compiled output
+/dist
+
+# Ignore artifacts:
+build
+coverage
+node_modules
+
+.gitignore
+.prettierignore
