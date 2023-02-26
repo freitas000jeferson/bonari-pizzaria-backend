@@ -1,4 +1,4 @@
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import helmet from 'helmet';
@@ -9,7 +9,7 @@ import { SetupSwagger } from './swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const configService = app.get(ConfigService);
+  const configService = app.get<ConfigService>(ConfigService);
   app.useGlobalInterceptors(new TimeoutInterceptor());
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
@@ -17,7 +17,10 @@ async function bootstrap() {
   app.enableCors();
 
   const prefix = configService.get<string>('API_PREFIX');
-  app.setGlobalPrefix(prefix ? prefix : '');
+  app.enableVersioning({
+    type: VersioningType.URI,
+  });
+  app.setGlobalPrefix(prefix ? prefix : 'api');
 
   if (configService.get<string>('API_SWAGGER_ENABLE') === '1') {
     SetupSwagger(app);

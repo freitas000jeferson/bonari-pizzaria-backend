@@ -8,6 +8,7 @@ export class AppService {
   getHello(): string {
     return 'Hello World!';
   }
+
   healthCheck() {
     return {
       env: this.configService.get<string>('ENV') ?? 'DEV',
