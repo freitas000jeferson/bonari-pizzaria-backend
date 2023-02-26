@@ -2,6 +2,7 @@ import {
   CallHandler,
   ExecutionContext,
   Injectable,
+  // eslint-disable-next-line prettier/prettier
   NestInterceptor
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
