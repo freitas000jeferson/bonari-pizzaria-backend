@@ -1,3 +1,4 @@
+import { PrismaService } from './common/db/prisma.service';
 import { Module } from '@nestjs/common';
 import { MiddlewareConsumer, NestModule } from '@nestjs/common/interfaces';
 import { ConfigModule } from '@nestjs/config';
@@ -14,7 +15,7 @@ import { AppService } from './app.service';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [PrismaService, AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

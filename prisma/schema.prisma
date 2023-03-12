@@ -3,9 +3,18 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["mongodb"]
 }
 
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
+}
+
+model CountOrder{
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  count       Int @default(0)
+  date        DateTime @default(now())
+
+  @@map("bonari-pizzaria-dev-count-orders")
 }
