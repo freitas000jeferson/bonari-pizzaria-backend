@@ -35,6 +35,8 @@ model Client{
   addresses   Address[]
   orders      Order[]
 
+  createdDate  DateTime
+  updatedDate  DateTime 
   @@map("bonari-pizzaria-dev-clients")
 }
 
@@ -73,6 +75,8 @@ model Product{
   pieces      Int
   category    String
 
+  createdDate  DateTime
+  updatedDate  DateTime
   @@map("bonari-pizzaria-dev-products")
 }
 type ProductType{
@@ -91,6 +95,8 @@ model Aditional{
   price       Float
   quantity    Int
 
+  createdDate  DateTime
+  updatedDate  DateTime
   @@map("bonari-pizzaria-dev-aditionals")
 }
 type AditionalType{
@@ -107,7 +113,10 @@ model User{
   email       String @unique
   password    String
   role        Role @default(USER)
+  isEnable    Boolean @default(true)
 
+  createdDate  DateTime
+  updatedDate  DateTime
   @@map("bonari-pizzaria-dev-users")
 }
 enum Role{
