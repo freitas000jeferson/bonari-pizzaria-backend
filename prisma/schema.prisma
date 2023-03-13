@@ -74,6 +74,8 @@ model Product{
   price       Float
   pieces      Int
   category    String
+  isEnable    Boolean @default(true)
+
 
   createdDate  DateTime
   updatedDate  DateTime
@@ -86,7 +88,10 @@ type ProductType{
   price       Float
   pieces      Int
   category    String
+  isEnable    Boolean @default(true)
 
+  createdDate  DateTime
+  updatedDate  DateTime
 }
 
 model Aditional{
@@ -94,6 +99,7 @@ model Aditional{
   name        String
   price       Float
   quantity    Int
+  isEnable    Boolean @default(true)
 
   createdDate  DateTime
   updatedDate  DateTime
@@ -104,6 +110,9 @@ type AditionalType{
   name        String
   price       Float
   quantity    Int
+  isEnable    Boolean @default(true)
+  createdDate  DateTime
+  updatedDate  DateTime
 }
 
 model User{

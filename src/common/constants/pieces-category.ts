@@ -1,4 +1,4 @@
 export const PiecesCategory = {
-  INTEIRA: 0,
-  METADE: 1,
+  INTEIRA: 1,
+  METADE: 2,
 };
