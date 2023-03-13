@@ -46,7 +46,7 @@ model Order{
   items       Item[]
   address     Address
   isDelivery  Boolean @default(true)
-  taxDelivery Float
+  deliveryFee Float
   total       Float
 
   startDate   DateTime @default(now())

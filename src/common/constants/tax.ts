@@ -1,9 +1,9 @@
-export const TaxDelivery = {
+export const DeliveryFee = {
   ARACATI: 3,
   PEDREGAL: 6,
   RETIRADA: 0,
 };
-export const Tax = {
+export const PaymentRate = {
   CREDITO: 4.99,
   DEBITO: 0,
   DINHEIRO: 0,
