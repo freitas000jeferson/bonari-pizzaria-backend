@@ -1,3 +1,4 @@
+import { ProductModule } from './product/product.module';
 import { PrismaService } from './common/db/prisma.service';
 import { Module } from '@nestjs/common';
 import { MiddlewareConsumer, NestModule } from '@nestjs/common/interfaces';
@@ -7,6 +8,7 @@ import { AppService } from './app.service';
 
 @Module({
   imports: [
+    ProductModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: process.env.NODE_ENV
