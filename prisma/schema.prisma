@@ -18,3 +18,99 @@ model CountOrder{
 
   @@map("bonari-pizzaria-dev-count-orders")
 }
+
+type Address{
+  cep             String
+  uf              String
+  city            String
+  neighbothood    String
+  street          String
+  streetNumber    String
+  complement      String
+}
+
+model Client{
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  phoneNumber String
+  addresses   Address[]
+  orders      Order[]
+
+  @@map("bonari-pizzaria-dev-clients")
+}
+
+model Order{
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  orderId     Int
+  client      Client @relation(fields: [clientId], references: [id])
+  clientId    String @db.ObjectId
+  items       Item[]
+  address     Address
+  isDelivery  Boolean @default(true)
+  taxDelivery Float
+  total       Float
+
+  startDate   DateTime @default(now())
+  updateDate  DateTime 
+  status      String
+
+  @@map("bonari-pizzaria-dev-orders")
+}
+
+type Item{
+  quantity    Int
+  observation String
+  subTotal    Float
+  formatPiece String
+  aditionals  AditionalType[]
+  products    ProductType[]
+}
+
+model Product{
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  price       Float
+  pieces      Int
+  category    String
+
+  @@map("bonari-pizzaria-dev-products")
+}
+type ProductType{
+  id          String 
+  name        String
+  description String
+  price       Float
+  pieces      Int
+  category    String
+
+}
+
+model Aditional{
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  price       Float
+  quantity    Int
+
+  @@map("bonari-pizzaria-dev-aditionals")
+}
+type AditionalType{
+  id          String
+  name        String
+  price       Float
+  quantity    Int
+}
+
+model User{
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  phoneNumber String
+  email       String @unique
+  password    String
+  role        Role @default(USER)
+
+  @@map("bonari-pizzaria-dev-users")
+}
+enum Role{
+  ADMIN
+  USER
+}
