@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["mongodb"]
 }
 
@@ -11,54 +11,55 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model CountOrder{
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  count       Int @default(0)
-  date        DateTime @default(now())
+model CountOrder {
+  id    String   @id @default(auto()) @map("_id") @db.ObjectId
+  count Int      @default(0)
+  date  DateTime @default(now())
 
   @@map("bonari-pizzaria-dev-count-orders")
 }
 
-type Address{
-  cep             String
-  uf              String
-  city            String
-  neighbothood    String
-  street          String
-  streetNumber    String
-  complement      String
+type Address {
+  cep          String
+  uf           String
+  city         String
+  neighbothood String
+  street       String
+  streetNumber String
+  complement   String
 }
 
-model Client{
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
+model Client {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
   phoneNumber String
   addresses   Address[]
   orders      Order[]
 
-  createdDate  DateTime
-  updatedDate  DateTime 
+  createdDate DateTime
+  updatedDate DateTime
+
   @@map("bonari-pizzaria-dev-clients")
 }
 
-model Order{
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
+model Order {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
   orderId     Int
-  client      Client @relation(fields: [clientId], references: [id])
-  clientId    String @db.ObjectId
+  client      Client  @relation(fields: [clientId], references: [id])
+  clientId    String  @db.ObjectId
   items       Item[]
   address     Address
   isDelivery  Boolean @default(true)
   deliveryFee Float
   total       Float
 
-  startDate   DateTime @default(now())
-  updateDate  DateTime 
-  status      String
+  startDate  DateTime @default(now())
+  updateDate DateTime
+  status     String
 
   @@map("bonari-pizzaria-dev-orders")
 }
 
-type Item{
+type Item {
   quantity    Int
   observation String
   subTotal    Float
@@ -67,8 +68,8 @@ type Item{
   products    ProductType[]
 }
 
-model Product{
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
+model Product {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String
   price       Float
@@ -76,13 +77,14 @@ model Product{
   category    String
   isEnable    Boolean @default(true)
 
+  createdDate DateTime
+  updatedDate DateTime
 
-  createdDate  DateTime
-  updatedDate  DateTime
   @@map("bonari-pizzaria-dev-products")
 }
-type ProductType{
-  id          String 
+
+type ProductType {
+  id          String
   name        String
   description String
   price       Float
@@ -90,45 +92,49 @@ type ProductType{
   category    String
   isEnable    Boolean @default(true)
 
-  createdDate  DateTime
-  updatedDate  DateTime
+  createdDate DateTime
+  updatedDate DateTime
 }
 
-model Aditional{
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  price       Float
-  quantity    Int
-  isEnable    Boolean @default(true)
+model Aditional {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  price    Float
+  quantity Int
+  isEnable Boolean @default(true)
 
-  createdDate  DateTime
-  updatedDate  DateTime
+  createdDate DateTime
+  updatedDate DateTime
+
   @@map("bonari-pizzaria-dev-aditionals")
 }
-type AditionalType{
+
+type AditionalType {
   id          String
   name        String
   price       Float
   quantity    Int
-  isEnable    Boolean @default(true)
-  createdDate  DateTime
-  updatedDate  DateTime
+  isEnable    Boolean  @default(true)
+  createdDate DateTime
+  updatedDate DateTime
 }
 
-model User{
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
+model User {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   phoneNumber String
-  email       String @unique
+  email       String  @unique
   password    String
-  role        Role @default(USER)
+  role        Role    @default(USER)
   isEnable    Boolean @default(true)
 
-  createdDate  DateTime
-  updatedDate  DateTime
+  createdDate DateTime
+  updatedDate DateTime
+
   @@map("bonari-pizzaria-dev-users")
 }
-enum Role{
+
+enum Role {
   ADMIN
   USER
 }

@@ -6,7 +6,7 @@ export function SetupSwagger(app: INestApplication): any {
     .setTitle('Bonari Pizzaria')
     .setDescription('Serviço de compras - Bonari Pizzaria')
     .setVersion('1.0')
-    .addServer('http://localhost:3000/api/v1/', 'DEV')
+    .addServer('http://localhost:3000/', 'DEV')
     .addBearerAuth(
       {
         type: 'http',

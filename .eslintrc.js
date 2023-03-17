@@ -6,14 +6,15 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: [
-    '@typescript-eslint/eslint-plugin',
+    // '@typescript-eslint/eslint-plugin',
     '@typescript-eslint',
     'prettier',
   ],
   extends: [
-    'plugin:prettier/recommended',
-    'prettier',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
+    'prettier',
   ],
   root: true,
   env: {
@@ -44,7 +45,7 @@ module.exports = {
         allowTemplateLiterals: true,
       },
     ],
-    // 'comma-dangle': ['error', 'only-multiline'],
+    'comma-dangle': ['error', 'only-multiline'],
     // 'linebreak-style': 0,
     // 'global-require': 0,
 
