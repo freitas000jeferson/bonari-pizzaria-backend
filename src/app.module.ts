@@ -5,6 +5,7 @@ import { MiddlewareConsumer, NestModule } from '@nestjs/common/interfaces';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { QueryTransformPipe } from './common/helpers/pipes/query-transform-pipe';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { AppService } from './app.service';
     }),
   ],
   controllers: [AppController],
-  providers: [PrismaService, AppService],
+  providers: [AppService, QueryTransformPipe],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

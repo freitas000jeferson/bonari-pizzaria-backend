@@ -8,10 +8,14 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
+import { QueryTransformPipe } from 'src/common/helpers/pipes/query-transform-pipe';
 import { CreateProductDto } from './dto/create-product.dto';
+import { QueryParamsDto } from './dto/query-params.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductService } from './services/product.service';
+import { PaginationDto } from './../common/helpers/pagination.helper';
 
 @Controller({ path: 'products', version: '1' })
 export class ProductController {
@@ -25,8 +29,12 @@ export class ProductController {
     return await this.productService.findById(id);
   }
   @Get()
-  async findAll() {
-    return await this.productService.findAll();
+  async findAll(
+    @Query(new QueryTransformPipe()) pagination: PaginationDto,
+    @Query(new QueryTransformPipe()) query: QueryParamsDto
+  ) {
+    console.log(pagination, query);
+    return { date: new Date().toISOString() }; //await this.productService.findAll();
   }
   @Post()
   async create(@Body() createProductDto: CreateProductDto) {
