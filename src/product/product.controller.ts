@@ -16,6 +16,7 @@ import { QueryParamsDto } from './dto/query-params.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductService } from './services/product.service';
 import { PaginationDto } from './../common/helpers/pagination.helper';
+import { query } from 'express';
 
 @Controller({ path: 'products', version: '1' })
 export class ProductController {
@@ -33,8 +34,7 @@ export class ProductController {
     @Query(new QueryTransformPipe()) pagination: PaginationDto,
     @Query(new QueryTransformPipe()) query: QueryParamsDto
   ) {
-    console.log(pagination, query);
-    return { date: new Date().toISOString() }; //await this.productService.findAll();
+    return await this.productService.findAllPaginated(pagination, query);
   }
   @Post()
   async create(@Body() createProductDto: CreateProductDto) {

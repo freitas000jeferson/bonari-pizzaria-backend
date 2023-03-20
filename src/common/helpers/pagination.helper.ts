@@ -1,5 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsNumber, IsInt } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsString,
+  IsNumber,
+  IsInt,
+  IsEmpty,
+  ValidateIf,
+  IsNumberString,
+} from 'class-validator';
 
 export class PaginationDto {
   @ApiProperty({
@@ -7,33 +15,37 @@ export class PaginationDto {
     type: Number,
     example: 0,
     default: 0,
+    required: false,
   })
-  @IsInt()
-  page?: number = 0;
+  @IsNumberString()
+  page?: number = Number(0);
 
   @ApiProperty({
     description: 'Quantidade de itens por Página',
     type: Number,
     example: 10,
-    default: 10,
+    default: Number(10),
+    required: false,
   })
-  @IsInt()
+  @IsNumberString()
   size?: number = 10;
 
   @ApiProperty({
     description: 'Ordenação dos itens da Página',
-    type: Number,
+    type: String,
     example: 'asc',
     default: 'asc',
+    required: false,
   })
   @IsString()
   sort?: string = 'asc';
 
   @ApiProperty({
     description: 'Item a ser ordenado na Página',
-    type: Number,
+    type: String,
     example: 'name',
     default: 'name',
+    required: false,
   })
   @IsString()
   order?: string = '';
@@ -41,12 +53,16 @@ export class PaginationDto {
 export const makePaginationHelper = ({
   page = 0,
   size = 10,
-  sort = 'name',
-  order = 'asc',
+  sort,
+  order,
 }: PaginationDto) => {
+  let orderBy = undefined;
+  if (sort && order) {
+    orderBy = { [sort]: order };
+  }
   return {
     skip: page * size,
     take: Number(size),
-    orderBy: { [sort]: order },
+    orderBy,
   };
 };
