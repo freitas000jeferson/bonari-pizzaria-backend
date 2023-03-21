@@ -4,7 +4,7 @@
     "description": "Refrigerante guaraná 1 litro",
     "price": 6.99,
     "category": "BEBIDAS",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -14,7 +14,7 @@
     "description": "Refrigerante Pepsi 1 litro",
     "price": 6.99,
     "category": "BEBIDAS",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -24,7 +24,7 @@
     "description": "Cajuína São Geraldo 1 litro",
     "price": 7.99,
     "category": "BEBIDAS",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -34,7 +34,7 @@
     "description": "Guaraná lata",
     "price": 4.99,
     "category": "BEBIDAS",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -44,7 +44,7 @@
     "description": "Coca cola lata",
     "price": 4.99,
     "category": "BEBIDAS",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -54,7 +54,7 @@
     "description": "Suco jarra média",
     "price": 10.0,
     "category": "BEBIDAS",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -64,7 +64,7 @@
     "description": "Água mineral",
     "price": 3.0,
     "category": "BEBIDAS",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -74,7 +74,7 @@
     "description": "Molho de tomate, mussarela, milho, orégano",
     "price": 27.99,
     "category": "PIZZA_TRADICIONAL",
-    "pieces": 1,
+    "piecess": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -84,7 +84,7 @@
     "description": "Molho de tomate, mussarela, presunto, cebola, milho, orégano",
     "price": 27.99,
     "category": "PIZZA_TRADICIONAL",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -94,7 +94,7 @@
     "description": "Molho de tomate, mussarela, presunto, ovo, milho, cebola, azeitona, orégano",
     "price": 29.99,
     "category": "PIZZA_TRADICIONAL",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -104,7 +104,7 @@
     "description": "Molho de tomate, mussarela, calabresa, cebola, azeitona, orégano",
     "price": 29.99,
     "category": "PIZZA_TRADICIONAL",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -114,7 +114,7 @@
     "description": "Molho de tomate, mussarela, frango, milho, orégano",
     "price": 29.99,
     "category": "PIZZA_TRADICIONAL",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -125,7 +125,7 @@
     "description": "Molho de tomate, mussarela, parmesão, tomato, manjericão, creme chesse, pimenta biquinho, orégano",
     "price": 31.99,
     "category": "PIZZA_PREMIUM",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -135,7 +135,7 @@
     "description": "Molho de tomate, mussarela, calabresa, presunto, milho, cebola, azeitona, orégano",
     "price": 31.99,
     "category": "PIZZA_PREMIUM",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -145,7 +145,7 @@
     "description": "Molho do tomato, mussarela, calabresa, bacon, cebola, azeitona, orégano",
     "price": 31.99,
     "category": "PIZZA_PREMIUM",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -155,7 +155,7 @@
     "description": "Molho de tomate, mussarela, calabresa, cebola, catupiry, azeitona, orégano",
     "price": 31.99,
     "category": "PIZZA_PREMIUM",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -165,7 +165,7 @@
     "description": "Molho de tomate, mussarela, frango, catupiry ou cheddar, cebola, milho, orégano",
     "price": 31.99,
     "category": "PIZZA_PREMIUM",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -175,7 +175,7 @@
     "description": "Molho de tomate, mussarela, frango, cebola, batata palha, milho, orégano",
     "price": 31.99,
     "category": "PIZZA_PREMIUM",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -185,7 +185,7 @@
     "description": "Molho do tomato, mussarela, frango, bacon, cebola, milho, orégano",
     "price": 31.99,
     "category": "PIZZA_PREMIUM",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -195,7 +195,7 @@
     "description": "Molho de tomate, mussarela, bacon, coalho em cubos, creme cheese, milho, cebola, orégano",
     "price": 31.99,
     "category": "PIZZA_PREMIUM",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -205,7 +205,7 @@
     "description": "Molho do tomate, mussarela, carne de sol, cebola, azeitona, orégano",
     "price": 33.99,
     "category": "PIZZA_PREMIUM",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -215,7 +215,7 @@
     "description": "Molho do tomate, mussarela, carne de sol, bacon, cebola, azeitona, orégano",
     "price": 35.99,
     "category": "PIZZA_PREMIUM",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -225,7 +225,7 @@
     "description": "Molho de tomate, mussarela, carne de sol, cebola, coalho, creme cheese, pimenta biquinho, orégano",
     "price": 37.99,
     "category": "PIZZA_ESPECIAL",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -235,7 +235,7 @@
     "description": "Molho de tomate, mussarela, carne de sol, coalho, cebola caramelizada com melaço de cana, creme cheese, pimenta biquinho, orégano",
     "price": 39.99,
     "category": "PIZZA_ESPECIAL",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -245,7 +245,7 @@
     "description": "Molho de tomate, mussarela, frango, coalho, cebola caramelizada, creme cheese, orégano",
     "price": 35.99,
     "category": "PIZZA_ESPECIAL",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -255,7 +255,7 @@
     "description": "Molho de tomate, mussarela, calabresa, coalho, creme cheese, pimenta biquinho, cebola, orégano",
     "price": 35.99,
     "category": "PIZZA_ESPECIAL",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -265,7 +265,7 @@
     "description": "Molho de tomate, mussarela, coalho, lombo suíno, creme cheese, pimenta biquinho, orégano",
     "price": 35.99,
     "category": "PIZZA_ESPECIAL",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -275,7 +275,7 @@
     "description": "Molho de tomate, mussarela, coalho, pepperoni, creme cheese, pimenta biquinho, orégano",
     "price": 39.99,
     "category": "PIZZA_ESPECIAL",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -285,7 +285,7 @@
     "description": "_description",
     "price": 1,
     "category": "_category",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -295,7 +295,7 @@
     "description": "Chocolate, granulado",
     "price": 29.99,
     "category": "PIZZA_DOCE",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -305,7 +305,7 @@
     "description": "Chocolate, mms",
     "price": 29.99,
     "category": "PIZZA_DOCE",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -315,7 +315,7 @@
     "description": "Chocolate branco, oreo",
     "price": 29.99,
     "category": "PIZZA_DOCE",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"
@@ -325,7 +325,7 @@
     "description": "Mussarela, coalho, goiabada",
     "price": 29.99,
     "category": "PIZZA_DOCE",
-    "piece": 1,
+    "pieces": 1,
     "isEnable": true,
     "createdDate": "2023-03-05T03:00:00.000+00:00",
     "updatedDate": "2023-03-05T03:00:00.000+00:00"

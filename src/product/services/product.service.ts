@@ -29,33 +29,70 @@ export class ProductService {
     }
   }
   async findAll() {
-    return await this.productRepository.findAll();
+    try {
+      const data = await this.productRepository.findAll();
+      if (!data) {
+        throw new NotFoundException(exceptionMessages.notFound('product'));
+      }
+      return plainToClass(ApiSuccessResponse, { data });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
   async findAllPaginated(pagination: PaginationDto, query: QueryParamsDto) {
-    const { results, totalItems } =
-      await this.productRepository.findAllPagineted(pagination, query);
-    const size: number = Number(pagination.size!);
-    const totalPages = Math.ceil(totalItems / size!) - 1;
-    const currentPage = Number(pagination.page);
-    return plainToClass(ApiSuccessResponse, {
-      data: results,
-      pagination: {
-        length: totalItems,
-        size: size,
-        lastPage: totalPages,
-        page: currentPage,
-        startIndex: currentPage * size,
-        endIndex: currentPage * size + (size + 1),
-      },
-    });
+    try {
+      const { results, totalItems } =
+        await this.productRepository.findAllPagineted(pagination, query);
+      const size: number = Number(pagination.size!);
+      const totalPages = Math.ceil(totalItems / size!) - 1;
+      const currentPage = Number(pagination.page);
+      return plainToClass(ApiSuccessResponse, {
+        data: results,
+        pagination: {
+          length: totalItems,
+          size: size,
+          lastPage: totalPages,
+          page: currentPage,
+          startIndex: currentPage * size,
+          endIndex: currentPage * size + (size + 1),
+        },
+      });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
   async create(createProductDto: CreateProductDto) {
-    return '';
+    try {
+      const data = await this.productRepository.create(createProductDto);
+      return plainToClass(ApiSuccessResponse, { data });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
+  }
+  async createMany(listCreateProductDto: CreateProductDto[]) {
+    try {
+      const data = await this.productRepository.createMany(
+        listCreateProductDto
+      );
+      return plainToClass(ApiSuccessResponse, { data });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
   async update(id: string, updateProductDto: UpdateProductDto) {
-    return '';
+    try {
+      const data = await this.productRepository.update(id, updateProductDto);
+      return plainToClass(ApiSuccessResponse, { data });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
   async delete(id: string) {
-    return '';
+    try {
+      const data = await this.productRepository.delete(id);
+      return plainToClass(ApiSuccessResponse, { data });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 }

@@ -5,12 +5,12 @@ import {
   makePaginationHelper,
   PaginationDto,
 } from 'src/common/helpers/pagination.helper';
-import { CreateProductDto } from '../dto/create-product.dto';
 import {
   makeWhereDescriptionAndName,
   QueryParamsDto,
 } from '../dto/query-params.dto';
 import { UpdateProductDto } from '../dto/update-product.dto';
+import { CreateProductDto } from './../dto/create-product.dto';
 
 @Injectable()
 export class ProductRepository {
@@ -23,13 +23,30 @@ export class ProductRepository {
     return await this.repository.findFirst({ where: { id } });
   }
   async findAll() {
-    return await this.repository.findMany({});
+    return await this.repository.findMany({
+      select: {
+        id: true,
+        name: true,
+        price: true,
+        description: true,
+        isEnable: true,
+        category: true,
+      },
+    });
   }
   async findAllPagineted(pagination: PaginationDto, query: QueryParamsDto) {
     const results = await this.repository.findMany({
       ...makePaginationHelper(pagination),
       where: {
         ...makeWhereDescriptionAndName(query),
+      },
+      select: {
+        id: true,
+        name: true,
+        price: true,
+        description: true,
+        isEnable: true,
+        category: true,
       },
     });
     const totalItems = await this.count(query);
@@ -46,13 +63,26 @@ export class ProductRepository {
       },
     });
   }
-  async create(createProductDto: CreateProductDto) {
-    return await this.repository;
+  async createMany(listProductsDto: CreateProductDto[]) {
+    const date = new Date().toISOString();
+    listProductsDto.forEach((product) => {
+      product.createdDate = date;
+      product.updatedDate = date;
+    });
+    return await this.repository.createMany({ data: listProductsDto });
   }
-  async update(id: string, updateProductDto: UpdateProductDto) {
-    return '';
+  async create(data: CreateProductDto) {
+    const date = new Date().toISOString();
+    data.createdDate = date;
+    data.updatedDate = date;
+    return await this.repository.create({ data });
+  }
+  async update(id: string, data: UpdateProductDto) {
+    const date = new Date().toISOString();
+    data.updatedDate = date;
+    return await this.repository.update({ where: { id }, data });
   }
   async delete(id: string) {
-    return '';
+    return await this.repository.delete({ where: { id } });
   }
 }

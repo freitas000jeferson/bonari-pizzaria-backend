@@ -7,6 +7,7 @@ import {
   IsEmpty,
   ValidateIf,
   IsNumberString,
+  IsOptional,
 } from 'class-validator';
 
 export class PaginationDto {
@@ -17,6 +18,7 @@ export class PaginationDto {
     default: 0,
     required: false,
   })
+  @IsOptional()
   @IsNumberString()
   page?: number = Number(0);
 
@@ -27,6 +29,7 @@ export class PaginationDto {
     default: Number(10),
     required: false,
   })
+  @IsOptional()
   @IsNumberString()
   size?: number = 10;
 
@@ -37,6 +40,7 @@ export class PaginationDto {
     default: 'asc',
     required: false,
   })
+  @IsOptional()
   @IsString()
   sort?: string = 'asc';
 
@@ -47,6 +51,7 @@ export class PaginationDto {
     default: 'name',
     required: false,
   })
+  @IsOptional()
   @IsString()
   order?: string = '';
 }

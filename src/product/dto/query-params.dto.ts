@@ -2,7 +2,6 @@ import { Type } from 'class-transformer';
 import { IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Prisma } from '@prisma/client';
-import { PaginationDto } from 'src/common/helpers/pagination.helper';
 
 export class QueryParamsDto {
   @ApiProperty({
@@ -21,6 +20,15 @@ export class QueryParamsDto {
   })
   @IsString()
   description?: string = '';
+
+  @ApiProperty({
+    description: 'consulta por categoria do produto',
+    type: String,
+    example: 'BEBIDA',
+    required: false,
+  })
+  @IsString()
+  category?: string = '';
 }
 
 export const makeWhereDescriptionAndName = (
@@ -33,6 +41,9 @@ export const makeWhereDescriptionAndName = (
         : undefined,
       name: query.name
         ? { contains: query.name, mode: 'insensitive' }
+        : undefined,
+      category: query.category
+        ? { contains: query.category, mode: 'insensitive' }
         : undefined,
     },
   };
