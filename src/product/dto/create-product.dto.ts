@@ -1,4 +1,4 @@
-import { Product } from '../entities/product.entity';
+import { Product } from '../../common/entities/product.entity';
 import { IsOptional, IsString, IsNumber, IsBoolean } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
