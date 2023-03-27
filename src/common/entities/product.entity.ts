@@ -2,7 +2,7 @@ import { Prisma } from '@prisma/client';
 import { plainToClass } from 'class-transformer';
 
 export class Product implements Prisma.ProductUncheckedCreateInput {
-  id?: string | undefined;
+  id: string;
   name: string;
   description: string;
   price: number;
@@ -11,9 +11,20 @@ export class Product implements Prisma.ProductUncheckedCreateInput {
   category: string;
   createdDate: string | Date;
   updatedDate: string | Date;
-  createType() {
-    return plainToClass(ProductType, this);
-  }
+
+  // constructor(product: Record<string, any>) {
+  //   if (product) {
+  //     this.id = product.id;
+  //     this.name = product.name;
+  //     this.description = product.description;
+  //     this.price = product.price;
+  //     this.pieces = product.pieces;
+  //     this.isEnable = product.isEnable;
+  //     this.category = product.category;
+  //     this.createdDate = product.createdDate;
+  //     this.updatedDate = product.updatedDate;
+  //   }
+  // }
 }
 
 export class ProductType implements Prisma.ProductTypeCreateInput {
@@ -27,3 +38,16 @@ export class ProductType implements Prisma.ProductTypeCreateInput {
   createdDate: string | Date;
   updatedDate: string | Date;
 }
+export const createNewProductType = (product: Product): ProductType => {
+  return {
+    id: product.id,
+    name: product.name,
+    description: product.description,
+    price: product.price,
+    pieces: product.pieces,
+    isEnable: product.isEnable,
+    category: product.category,
+    createdDate: product.createdDate,
+    updatedDate: product.updatedDate,
+  };
+};

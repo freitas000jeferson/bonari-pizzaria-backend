@@ -6,6 +6,8 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { QueryTransformPipe } from './common/helpers/pipes/query-transform-pipe';
+import { OrderModule } from './order/order.module';
+import { AditionalModule } from './aditional/aditional.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { QueryTransformPipe } from './common/helpers/pipes/query-transform-pipe'
         ? `./env/.env.${process.env.NODE_ENV}`
         : './env/.env.dev',
     }),
+    OrderModule,
+    AditionalModule,
   ],
   controllers: [AppController],
   providers: [AppService, QueryTransformPipe],

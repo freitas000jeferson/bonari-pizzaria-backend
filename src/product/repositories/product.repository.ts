@@ -22,6 +22,10 @@ export class ProductRepository {
   async findById(id: string) {
     return await this.repository.findFirst({ where: { id } });
   }
+  async findManyByIds(ids: string[]) {
+    return await this.repository.findMany({ where: { id: { in: ids } } });
+  }
+
   async findAll() {
     return await this.repository.findMany({
       select: {

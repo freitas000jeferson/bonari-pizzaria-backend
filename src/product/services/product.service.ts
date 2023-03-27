@@ -4,7 +4,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
-import { sign } from 'crypto';
 import { ApiSuccessResponse } from 'src/common/dtos/api-success-response.dto';
 import { exceptionMessages } from 'src/common/exceptions/exceptions-messages';
 import { PaginationDto } from 'src/common/helpers/pagination.helper';
@@ -12,6 +11,7 @@ import { CreateProductDto } from '../dto/create-product.dto';
 import { QueryParamsDto } from '../dto/query-params.dto';
 import { UpdateProductDto } from '../dto/update-product.dto';
 import { ProductRepository } from '../repositories/product.repository';
+import { Product } from 'src/common/entities/product.entity';
 
 @Injectable()
 export class ProductService {
@@ -24,6 +24,19 @@ export class ProductService {
         throw new NotFoundException(exceptionMessages.notFound('product'));
       }
       return plainToClass(ApiSuccessResponse, { data });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
+  }
+  async findProductById(productsId: string[]): Promise<Product[]> {
+    try {
+      const response: Product[] = await this.productRepository.findManyByIds(
+        productsId
+      );
+      if (!response || productsId.length !== response.length) {
+        throw new NotFoundException(exceptionMessages.notFound('product'));
+      }
+      return response;
     } catch (error) {
       throw new InternalServerErrorException(error);
     }

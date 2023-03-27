@@ -42,30 +42,38 @@ model Client {
 }
 
 model Order {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  orderId     Int
-  client      Client  @relation(fields: [clientId], references: [id])
-  clientId    String  @db.ObjectId
-  items       Item[]
-  address     Address
-  isDelivery  Boolean @default(true)
-  deliveryFee Float
-  total       Float
-
-  startDate  DateTime @default(now())
-  updateDate DateTime
-  status     String
+  id                String        @id @default(auto()) @map("_id") @db.ObjectId
+  orderId           Int
+  client            Client        @relation(fields: [clientId], references: [id])
+  clientId          String        @db.ObjectId
+  items             Item[]
+  address           Address?
+  isDelivery        Boolean       @default(true)
+  deliveryFee       Float
+  total             Float
+  startDate         DateTime      @default(now())
+  updateDate        DateTime
+  status            String
+  formOfPaymentName String
+  formOfPayment     FormOfPayment
 
   @@map("bonari-pizzaria-dev-orders")
 }
 
 type Item {
   quantity    Int
-  observation String
+  observation String?
   subTotal    Float
   formatPiece String
   aditionals  AditionalType[]
   products    ProductType[]
+}
+
+type FormOfPayment {
+  name          String?
+  totalReceived Float?
+  needChange    Boolean? @default(false)
+  totalChanged  Float?
 }
 
 model Product {
@@ -86,14 +94,14 @@ model Product {
 type ProductType {
   id          String
   name        String
-  description String
+  description String?
   price       Float
-  pieces      Int
+  pieces      Int?
   category    String
   isEnable    Boolean @default(true)
 
-  createdDate DateTime
-  updatedDate DateTime
+  createdDate DateTime?
+  updatedDate DateTime?
 }
 
 model Aditional {
@@ -114,16 +122,16 @@ type AditionalType {
   name        String
   price       Float
   quantity    Int
-  isEnable    Boolean  @default(true)
-  createdDate DateTime
-  updatedDate DateTime
+  isEnable    Boolean   @default(true)
+  createdDate DateTime?
+  updatedDate DateTime?
 }
 
 model User {
   id          String  @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   phoneNumber String
-  email       String  @unique
+  email       String? @unique
   password    String
   role        Role    @default(USER)
   isEnable    Boolean @default(true)
