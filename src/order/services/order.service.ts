@@ -38,6 +38,8 @@ import {
 import { CreateFormOfPaymentByOrderDto } from '../dto/create-form-of-payment-by-order.dto';
 import { Order } from 'src/common/entities/order.entity';
 import { DeliveryStatus } from 'src/common/constants/delivery-status';
+import { CountOrderService } from './count-order.service';
+import { OrderRepository } from '../repositories/order.repository';
 interface ICalculateTotalArgs {
   itemsTotal: number;
   deliveryFeeTotal: number;
@@ -47,8 +49,10 @@ interface ICalculateTotalArgs {
 @Injectable()
 export class OrderService {
   constructor(
+    private readonly orderRepository: OrderRepository,
     private readonly aditionalRepository: AditionalRepository,
-    private readonly productService: ProductService
+    private readonly productService: ProductService,
+    private readonly countOrderService: CountOrderService
   ) {}
   // TODO:
   // [x] 1- calcular preço dos produtos e adicionais
@@ -76,8 +80,10 @@ export class OrderService {
     });
     const startDate = new Date().toISOString();
 
+    const orderId = await this.countOrderService.getNextOrderId();
+
     const order: Order = {
-      orderId: 1,
+      orderId: orderId,
       clientId: createOrderDto.clientId,
       items: itemsResponse.items,
       address: createOrderDto.address,
@@ -91,6 +97,7 @@ export class OrderService {
       formOfPayment: payment.formOfPayment,
     };
 
+    await this.orderRepository.create(order);
     return order;
     return '[SUCCESS] This action adds a new order';
   }
