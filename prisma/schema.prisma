@@ -32,6 +32,7 @@ type Address {
 model Client {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   phoneNumber String
+  password    String
   addresses   Address[]
   orders      Order[]
 
@@ -42,37 +43,64 @@ model Client {
 }
 
 model Order {
-  id                String        @id @default(auto()) @map("_id") @db.ObjectId
-  orderId           Int
-  client            Client        @relation(fields: [clientId], references: [id])
-  clientId          String        @db.ObjectId
-  items             Item[]
-  address           Address?
-  isDelivery        Boolean       @default(true)
-  deliveryFee       Float
-  total             Float
-  startDate         DateTime      @default(now())
-  updateDate        DateTime
-  status            String
-  formOfPaymentName String
-  formOfPayment     FormOfPayment
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  type          String
+  orderId       Int
+  startDate     DateTime        @default(now())
+  updateDate    DateTime
+  status        String
+  client        Client          @relation(fields: [clientId], references: [id])
+  clientId      String          @db.ObjectId
+  items         Item[]
+  address       Address?
+  isDelivery    Boolean         @default(true)
+  deliveryFee   Float
+  total         Float
+  formOfPayment FormOfPayment[]
 
   @@map("bonari-pizzaria-dev-orders")
 }
 
+model OrderOfTable {
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  orderId         Int
+  startDate       DateTime      @default(now())
+  updateDate      DateTime
+  status          String
+  client          ClientAtTable @relation(fields: [clientAtTableId], references: [id])
+  clientAtTableId String        @db.ObjectId
+  items           Item[]
+  total           Float
+}
+
+model ClientAtTable {
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  tableId       String
+  startDate     DateTime        @default(now())
+  updateDate    DateTime
+  isOpen        Boolean
+  userId        String          @db.ObjectId
+  user          User            @relation(fields: [userId], references: [id])
+  orders        OrderOfTable[]
+  total         Float
+  formOfPayment FormOfPayment[]
+}
+
 type Item {
-  quantity    Int
   observation String?
-  subTotal    Float
-  formatPiece String
+  category    String
+  type        String
+  pieces      Int
   aditionals  AditionalType[]
   products    ProductType[]
+  quantity    Int
+  subTotal    Float
 }
 
 type FormOfPayment {
-  name          String?
-  totalReceived Float?
-  needChange    Boolean? @default(false)
+  name          String
+  totalReceived Float
+  needChange    Boolean @default(false)
   totalChanged  Float?
 }
 
@@ -81,7 +109,6 @@ model Product {
   name        String  @unique
   description String
   price       Float
-  pieces      Int
   category    String
   isEnable    Boolean @default(true)
 
@@ -96,7 +123,6 @@ type ProductType {
   name        String
   description String?
   price       Float
-  pieces      Int?
   category    String
   isEnable    Boolean @default(true)
 
@@ -128,13 +154,14 @@ type AditionalType {
 }
 
 model User {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  phoneNumber String
-  email       String? @unique
-  password    String
-  role        Role    @default(USER)
-  isEnable    Boolean @default(true)
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  phoneNumber   String
+  email         String?         @unique
+  password      String
+  role          Role            @default(USER)
+  isEnable      Boolean         @default(true)
+  clientAtTable ClientAtTable[]
 
   createdDate DateTime
   updatedDate DateTime
@@ -145,4 +172,5 @@ model User {
 enum Role {
   ADMIN
   USER
+  WAITER
 }
