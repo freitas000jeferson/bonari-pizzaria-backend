@@ -7,8 +7,8 @@ export class User implements Prisma.UserUncheckedCreateInput {
   phoneNumber: string;
   email: string;
   password: string;
-  role?: Role | RoleEnum | undefined;
-  isEnable?: boolean | undefined;
+  role: Role | RoleEnum;
+  isEnable: boolean;
   createdDate: string | Date;
   updatedDate: string | Date;
 }

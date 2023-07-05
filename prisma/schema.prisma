@@ -44,10 +44,9 @@ model Client {
 
 model Order {
   id            String          @id @default(auto()) @map("_id") @db.ObjectId
-  type          String
   orderId       Int
   startDate     DateTime        @default(now())
-  updateDate    DateTime
+  updateDate    DateTime?
   status        String
   client        Client          @relation(fields: [clientId], references: [id])
   clientId      String          @db.ObjectId
@@ -71,6 +70,8 @@ model OrderOfTable {
   clientAtTableId String        @db.ObjectId
   items           Item[]
   total           Float
+
+  @@map("bonari-pizzaria-dev-orders-of-table")
 }
 
 model ClientAtTable {
@@ -84,6 +85,8 @@ model ClientAtTable {
   orders        OrderOfTable[]
   total         Float
   formOfPayment FormOfPayment[]
+
+  @@map("bonari-pizzaria-dev-clients-at-table")
 }
 
 type Item {

@@ -15,7 +15,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { QueryParamsDto } from './dto/query-params.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductService } from './services/product.service';
-import { PaginationDto } from './../common/helpers/pagination.helper';
+import { PaginationDto } from './../common/helpers/pagination';
 import { query } from 'express';
 import { CreateManyProducts } from './dto/create-many-products';
 
@@ -38,6 +38,7 @@ export class ProductController {
   ) {
     return await this.productService.findAllPaginated(pagination, query);
   }
+
   @Post()
   async create(@Body() createProductDto: CreateProductDto) {
     return await this.productService.create(createProductDto);

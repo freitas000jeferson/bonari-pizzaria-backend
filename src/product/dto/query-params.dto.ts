@@ -12,6 +12,7 @@ export class QueryParamsDto {
   })
   @IsString()
   name?: string = '';
+
   @ApiProperty({
     description: 'consulta por descrição do produto',
     type: String,

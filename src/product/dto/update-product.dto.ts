@@ -27,6 +27,7 @@ export class UpdateProductDto extends PartialType(CreateProductDto) {
   })
   @IsNumber()
   price: number;
+
   @ApiProperty({
     description: 'Pedaço do produto',
     type: Number,

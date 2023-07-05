@@ -6,9 +6,8 @@ export class Product implements Prisma.ProductUncheckedCreateInput {
   name: string;
   description: string;
   price: number;
-  pieces: number;
-  isEnable?: boolean | undefined;
   category: string;
+  isEnable: boolean;
   createdDate: string | Date;
   updatedDate: string | Date;
 
@@ -30,10 +29,9 @@ export class Product implements Prisma.ProductUncheckedCreateInput {
 export class ProductType implements Prisma.ProductTypeCreateInput {
   id: string;
   name: string;
-  description: string;
+  description?: string | undefined;
   price: number;
-  pieces: number;
-  isEnable?: boolean | undefined;
+  isEnable: boolean;
   category: string;
   createdDate: string | Date;
   updatedDate: string | Date;
@@ -44,7 +42,6 @@ export const createNewProductType = (product: Product): ProductType => {
     name: product.name,
     description: product.description,
     price: product.price,
-    pieces: product.pieces,
     isEnable: product.isEnable,
     category: product.category,
     createdDate: product.createdDate,

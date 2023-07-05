@@ -55,19 +55,3 @@ export class PaginationDto {
   @IsString()
   order?: string = '';
 }
-export const makePaginationHelper = ({
-  page = 0,
-  size = 10,
-  sort,
-  order,
-}: PaginationDto) => {
-  let orderBy = undefined;
-  if (sort && order) {
-    orderBy = { [sort]: order };
-  }
-  return {
-    skip: page * size,
-    take: Number(size),
-    orderBy,
-  };
-};

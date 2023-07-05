@@ -1,16 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/common/db/prisma.service';
-import {
-  makePaginationHelper,
-  PaginationDto,
-} from 'src/common/helpers/pagination.helper';
+
 import {
   makeWhereDescriptionAndName,
   QueryParamsDto,
 } from '../dto/query-params.dto';
 import { UpdateProductDto } from '../dto/update-product.dto';
 import { CreateProductDto } from './../dto/create-product.dto';
+import {
+  makePaginationDBHelper,
+  PaginationDto,
+} from 'src/common/helpers/pagination';
 
 @Injectable()
 export class ProductRepository {
@@ -40,7 +41,7 @@ export class ProductRepository {
   }
   async findAllPagineted(pagination: PaginationDto, query: QueryParamsDto) {
     const results = await this.repository.findMany({
-      ...makePaginationHelper(pagination),
+      ...makePaginationDBHelper(pagination),
       where: {
         ...makeWhereDescriptionAndName(query),
       },

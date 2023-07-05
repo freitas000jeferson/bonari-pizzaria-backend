@@ -26,6 +26,7 @@ export class CreateProductDto extends Product {
   })
   @IsNumber()
   price: number;
+
   @ApiProperty({
     description: 'Pedaço do produto',
     type: Number,

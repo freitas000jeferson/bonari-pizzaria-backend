@@ -3,6 +3,7 @@ export enum DeliveryStatus {
   IN_PREPARATION = 'IN_PREPARATION',
   OUT_FOR_DELIVERY = 'OUT_FOR_DELIVERY',
   FINISHED = 'FINISHED',
+  CANCELED = 'CANCELED',
 }
 
 export const DeliveryStatusOrder = [
@@ -10,4 +11,5 @@ export const DeliveryStatusOrder = [
   'IN_PREPARATION',
   'OUT_FOR_DELIVERY',
   'FINISHED',
+  'CANCELED',
 ];
