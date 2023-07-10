@@ -16,7 +16,6 @@ import { QueryParamsDto } from './dto/query-params.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductService } from './services/product.service';
 import { PaginationDto } from './../common/helpers/pagination';
-import { query } from 'express';
 import { CreateManyProducts } from './dto/create-many-products';
 
 @Controller({ path: 'products', version: '1' })

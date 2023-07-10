@@ -8,6 +8,7 @@ import {
   IsArray,
   ArrayMinSize,
   ArrayMaxSize,
+  IsOptional,
 } from 'class-validator';
 import { PieceType } from 'src/common/constants/pieces-category';
 import { AditionalType } from 'src/common/entities/aditional.entity';
@@ -30,14 +31,6 @@ export class CreateProductByItemDto extends ProductType {
   })
   @IsString()
   name: string;
-
-  @ApiProperty({
-    description: 'Numero de pedaços do produto',
-    type: Number,
-    example: 4,
-  })
-  @IsNumber()
-  pieces: number;
 }
 
 export class CreateAditionalByItemDto extends AditionalType {
@@ -76,13 +69,22 @@ export class CreateItemByOrderDto extends Item {
   observation: string;
 
   @ApiProperty({
+    description: 'Categoria no item',
+    type: String,
+    example: 'PIZZA',
+  })
+  @IsOptional()
+  @IsString()
+  category: string;
+
+  @ApiProperty({
     description: 'Formato do item',
     type: String,
     example: 'INTEIRA',
     enum: PieceType,
   })
   @IsEnum(PieceType)
-  formatPiece: PieceType;
+  type: PieceType;
 
   @ApiProperty({
     description: 'Quantidade do produto',

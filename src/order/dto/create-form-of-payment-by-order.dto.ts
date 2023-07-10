@@ -12,7 +12,7 @@ export class CreateFormOfPaymentByOrderDto extends FormOfPayment {
   })
   @IsString()
   @IsEnum(PaymentRateType)
-  name: string;
+  name: PaymentRateType;
 
   @ApiProperty({
     description: 'Quanto o Cliente vai pagar',

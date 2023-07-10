@@ -74,16 +74,6 @@ export class CreateOrderDto extends Order {
   isDelivery: boolean;
 
   @ApiProperty({
-    description: 'Tipo da forma de pagamento do cliente',
-    type: String,
-    example: 'DINHEIRO',
-    enum: PaymentRateType,
-  })
-  @IsString()
-  @IsEnum(PaymentRateType)
-  formOfPaymentName: PaymentRateType;
-
-  @ApiProperty({
     description: 'Forma de pagamento do cliente',
     type: CreateFormOfPaymentByOrderDto,
     example: {
@@ -95,5 +85,5 @@ export class CreateOrderDto extends Order {
   })
   @Type(() => CreateFormOfPaymentByOrderDto)
   @ValidateNested()
-  formOfPayment: CreateFormOfPaymentByOrderDto;
+  formOfPayment: CreateFormOfPaymentByOrderDto[];
 }

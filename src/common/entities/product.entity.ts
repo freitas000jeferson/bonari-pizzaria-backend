@@ -7,7 +7,7 @@ export class Product implements Prisma.ProductUncheckedCreateInput {
   description: string;
   price: number;
   category: string;
-  isEnable: boolean;
+  isEnable?: boolean;
   createdDate: string | Date;
   updatedDate: string | Date;
 
@@ -29,9 +29,9 @@ export class Product implements Prisma.ProductUncheckedCreateInput {
 export class ProductType implements Prisma.ProductTypeCreateInput {
   id: string;
   name: string;
-  description?: string | undefined;
+  description: string;
   price: number;
-  isEnable: boolean;
+  isEnable?: boolean;
   category: string;
   createdDate: string | Date;
   updatedDate: string | Date;

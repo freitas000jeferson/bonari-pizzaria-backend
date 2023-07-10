@@ -3,15 +3,23 @@ import { AditionalType } from './aditional.entity';
 import { ProductType } from './product.entity';
 
 export class Item implements Prisma.ItemCreateInput {
-  observation?: string | undefined;
+  observation?: string | null | undefined;
   category: string;
   type: string;
   pieces: number;
-  aditionals: AditionalType[];
-  products: ProductType[];
+  aditionals?: AditionalType[] | undefined;
+  products?: ProductType[] | undefined;
   quantity: number;
   subTotal: number;
 
+  // observation?: string | undefined;
+  // category: string;
+  // type: string;
+  // pieces: number;
+  // aditionals: AditionalType[];
+  // products?: ProductType[];
+  // quantity: number;
+  // subTotal: number;
   // constructor(data: Record<string, any>) {
   //   if (data) {
   //     this.observation = this.observation;

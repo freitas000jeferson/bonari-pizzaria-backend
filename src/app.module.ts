@@ -1,3 +1,5 @@
+import { ClientModule } from './client/client.module';
+import { UserModule } from './user/user.module';
 import { ProductModule } from './product/product.module';
 import { PrismaService } from './common/db/prisma.service';
 import { Module } from '@nestjs/common';
@@ -11,6 +13,8 @@ import { AditionalModule } from './aditional/aditional.module';
 
 @Module({
   imports: [
+    ClientModule,
+    UserModule,
     ProductModule,
     ConfigModule.forRoot({
       isGlobal: true,

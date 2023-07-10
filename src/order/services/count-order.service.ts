@@ -1,12 +1,13 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CountOrderRepository } from './../repositories/count-order.repository';
 import { CountOrder } from './../../common/entities/count-order.entity';
+import getCurrentDate from 'src/common/helpers/date/get-current-date';
 
 @Injectable()
 export class CountOrderService {
   constructor(private readonly countOrderRepository: CountOrderRepository) {}
   async getNextOrderId(): Promise<number> {
-    const currentDate = this.getCurrentDate();
+    const currentDate = getCurrentDate();
     const { id, count, date } = await this.getOrCreateCountOrder(currentDate);
     await this.countOrderRepository.update(id, {
       count: count + 1,
@@ -28,14 +29,5 @@ export class CountOrderService {
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
-  }
-
-  private getCurrentDate(): Date {
-    let auxDate = new Date();
-    return new Date(
-      auxDate.getFullYear(),
-      auxDate.getMonth(),
-      auxDate.getDate()
-    );
   }
 }

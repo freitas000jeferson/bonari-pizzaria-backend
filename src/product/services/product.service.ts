@@ -32,7 +32,7 @@ export class ProductService {
       throw new InternalServerErrorException(error);
     }
   }
-  async findProductById(productsId: string[]): Promise<Product[]> {
+  async findProductsById(productsId: string[]): Promise<Product[]> {
     try {
       const response: Product[] = await this.productRepository.findManyByIds(
         productsId

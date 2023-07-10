@@ -1,8 +1,7 @@
-import { Prisma } from '@prisma/client';
-import { RoleUserEnum } from './role-user.enum';
+import { RoleUserEnum } from 'src/common/entities/role-user.enum';
+import { User } from 'src/common/entities/user.entity';
 
-export class User implements Prisma.UserUncheckedCreateInput {
-  id?: string | undefined;
+export class CreateUserDto extends User {
   name: string;
   phoneNumber: string;
   email: string;

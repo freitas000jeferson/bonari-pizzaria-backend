@@ -40,11 +40,11 @@ import { Order } from 'src/common/entities/order.entity';
 import { DeliveryStatus } from 'src/common/constants/delivery-status';
 import { CountOrderService } from './count-order.service';
 import { OrderRepository } from '../repositories/order.repository';
+import { OrderQueryParamsDto } from '../dto/order-query-params.dto';
 interface ICalculateTotalArgs {
   itemsTotal: number;
   deliveryFeeTotal: number;
-  formOfPaymentName: PaymentRateType;
-  formOfPayment: CreateFormOfPaymentByOrderDto;
+  formOfPayment: CreateFormOfPaymentByOrderDto[];
 }
 @Injectable()
 export class OrderService {
@@ -76,7 +76,6 @@ export class OrderService {
       itemsTotal: itemsResponse.total,
       deliveryFeeTotal: deliveryFee,
       formOfPayment: createOrderDto.formOfPayment,
-      formOfPaymentName: createOrderDto.formOfPaymentName,
     });
     const startDate = new Date().toISOString();
 
@@ -92,8 +91,7 @@ export class OrderService {
       total: payment.total,
       startDate: startDate,
       updateDate: startDate,
-      status: DeliveryStatus.PAYMENT_VALIDATION,
-      formOfPaymentName: createOrderDto.formOfPaymentName,
+      status: payment.status,
       formOfPayment: payment.formOfPayment,
     };
 
@@ -103,27 +101,39 @@ export class OrderService {
   }
 
   async calculateOrderTotal(data: ICalculateTotalArgs) {
-    if (data.formOfPayment.name !== data.formOfPaymentName) {
+    if (data.formOfPayment.length !== 1) {
       throw new BadRequestException({
-        message: 'Formas de pagamento não coincidem',
+        message:
+          'Não tem Formas de pagamento disponível. Insira a forma de Pagamento',
       });
     }
+    const formOfPayment = data.formOfPayment[0];
+    // if (data.formOfPayment[0].name !== data.formOfPaymentName) {
+    //   throw new BadRequestException({
+    //     message: 'Formas de pagamento não coincidem',
+    //   });
+    // }
     let value: number = data.itemsTotal + data.deliveryFeeTotal;
     let total: number = +(
       value +
-      (value * PAYMENT_RATE[data.formOfPaymentName]) / 100
+      (value * PAYMENT_RATE[formOfPayment.name]) / 100
     ).toFixed(2);
+
     if (
-      data.formOfPayment.needChange &&
-      data.formOfPaymentName === PaymentRateType.DINHEIRO
+      formOfPayment.needChange &&
+      formOfPayment.name === PaymentRateType.DINHEIRO
     ) {
-      data.formOfPayment.totalChanged = +(
-        data.formOfPayment.totalReceived - total
+      formOfPayment.totalChanged = +(
+        formOfPayment.totalReceived - total
       ).toFixed(2);
     }
     return {
       total,
       formOfPayment: data.formOfPayment,
+      status:
+        formOfPayment.name === PaymentRateType.PIX
+          ? DeliveryStatus.PAYMENT_VALIDATION
+          : DeliveryStatus.TO_PRINT,
     };
   }
 
@@ -153,41 +163,46 @@ export class OrderService {
 
   async calculateItem(itemProduct: CreateItemByOrderDto): Promise<Item> {
     try {
-      const aditionalsResponse = await this.findAditionalByIds(
+      // Busca e soma os valores dos adicionais desse item do pedido
+      const aditionalsResponse = await this.findAditionalByIdsAndCalculate(
         itemProduct?.aditionals
       );
 
+      // pega so os ids dos produtos para consultar no banco os detalhes
       const productsId: string[] = [];
       itemProduct.products!.forEach((product) => {
         productsId.push(product.id);
       });
 
-      const productsResponse = await this.productService.findProductById(
+      const productsResponse = await this.productService.findProductsById(
         productsId
       );
 
+      // verifica se o tipo do item corresponde a quantidade de produtos no item.
+      // EX: 'MEIA' tem 2 itens, 'INTEIRA' tem 1 item
       if (
         (productsResponse.length === 1 &&
-          itemProduct.formatPiece === PieceType.METADE) ||
+          itemProduct.type === PieceType.METADE) ||
         (productsResponse.length === 2 &&
-          itemProduct.formatPiece === PieceType.INTEIRA)
+          itemProduct.type === PieceType.INTEIRA)
       ) {
         throw new BadRequestException({
-          message: 'Order not contains ItemProduct',
+          message: `Order not contains ItemProduct. Type="${itemProduct.type}", Product items length="${productsResponse.length}"`,
         });
       }
-
+      // faz o calculo do produto no item
       let productSubTotal: number = 0;
       productsResponse.forEach((product) => {
-        productSubTotal +=
-          product.price / PIECES_CATEGORY[itemProduct.formatPiece];
+        productSubTotal += product.price / PIECES_CATEGORY[itemProduct.type];
       });
 
+      // Faz a soma dos produtos e adicional multiplicado pela quantidade de itens
       let subTotal: number =
-        itemProduct.quantity * productSubTotal +
-        itemProduct.quantity * aditionalsResponse.subTotal;
+        itemProduct.quantity * (productSubTotal + aditionalsResponse.subTotal);
 
       itemProduct.subTotal = +subTotal.toFixed(2);
+
+      // Passa os produtos e adicionais para o formato que vai salvar no banco
       itemProduct.aditionals = aditionalsResponse.aditionals.map((item) =>
         createNewAditionalType(item)
       );
@@ -201,7 +216,7 @@ export class OrderService {
     }
   }
 
-  async findAditionalByIds(data?: CreateAditionalByItemDto[]) {
+  async findAditionalByIdsAndCalculate(data?: CreateAditionalByItemDto[]) {
     try {
       if (!data) {
         return { aditionals: [], subTotal: 0 };
@@ -209,6 +224,7 @@ export class OrderService {
       let subTotal: number = 0;
       const aditionalsId: string[] = [];
       const auxPrice: { [key: string]: { id: string; quantity: number } } = {};
+
       data.forEach((aditional) => {
         aditionalsId.push(aditional.id);
         auxPrice[aditional.id] = {
@@ -218,9 +234,12 @@ export class OrderService {
       });
       const aditionals: Aditional[] =
         await this.aditionalRepository.findManyByIds(aditionalsId);
+
+      // confirma se todos os adicionais estão corretos
       if (!aditionals || aditionalsId.length !== aditionals.length) {
-        throw new NotFoundException(exceptionMessages.notFound('product'));
+        throw new NotFoundException(exceptionMessages.notFound('Aditional'));
       }
+      // calcula adicional * a qtd de adicionais requeridos
       aditionals.forEach((aditional) => {
         aditional.quantity = auxPrice[`${aditional.id}`].quantity;
         subTotal += aditional.quantity * aditional.price;
@@ -233,7 +252,9 @@ export class OrderService {
       throw new InternalServerErrorException(error);
     }
   }
-
+  async findByQuery(query?: OrderQueryParamsDto) {
+    return await this.orderRepository.findByCurrentDateOrWhere(query);
+  }
   findAll() {
     return `This action returns all order`;
   }
