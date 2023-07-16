@@ -10,9 +10,11 @@ import { AppService } from './app.service';
 import { QueryTransformPipe } from './common/helpers/pipes/query-transform-pipe';
 import { OrderModule } from './order/order.module';
 import { AditionalModule } from './aditional/aditional.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [
+  imports: [AuthModule,
+
     ClientModule,
     UserModule,
     ProductModule,

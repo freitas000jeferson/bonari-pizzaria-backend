@@ -4,8 +4,8 @@ import { PrismaService } from 'src/common/db/prisma.service';
 
 import {
   makeWhereDescriptionAndName,
-  QueryParamsDto,
-} from '../dto/query-params.dto';
+  ProductQueryParamsDto,
+} from '../dto/product-query-params.dto';
 import { UpdateProductDto } from '../dto/update-product.dto';
 import { CreateProductDto } from './../dto/create-product.dto';
 import {
@@ -39,7 +39,10 @@ export class ProductRepository {
       },
     });
   }
-  async findAllPagineted(pagination: PaginationDto, query: QueryParamsDto) {
+  async findAllPagineted(
+    pagination: PaginationDto,
+    query: ProductQueryParamsDto
+  ) {
     const results = await this.repository.findMany({
       ...makePaginationDBHelper(pagination),
       where: {
@@ -61,7 +64,7 @@ export class ProductRepository {
       totalItems,
     };
   }
-  async count(query: QueryParamsDto) {
+  async count(query: ProductQueryParamsDto) {
     return await this.repository.count({
       where: {
         ...makeWhereDescriptionAndName(query),

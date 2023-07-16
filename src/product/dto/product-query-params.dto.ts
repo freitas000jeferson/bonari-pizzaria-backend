@@ -3,7 +3,7 @@ import { IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Prisma } from '@prisma/client';
 
-export class QueryParamsDto {
+export class ProductQueryParamsDto {
   @ApiProperty({
     description: 'consulta por name',
     type: String,
@@ -33,7 +33,7 @@ export class QueryParamsDto {
 }
 
 export const makeWhereDescriptionAndName = (
-  query: QueryParamsDto
+  query: ProductQueryParamsDto
 ): Prisma.ProductWhereInput => {
   return {
     AND: {

@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { QueryTransformPipe } from 'src/common/helpers/pipes/query-transform-pipe';
 import { CreateProductDto } from './dto/create-product.dto';
-import { QueryParamsDto } from './dto/query-params.dto';
+import { ProductQueryParamsDto } from './dto/product-query-params.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductService } from './services/product.service';
 import { PaginationDto } from './../common/helpers/pagination';
@@ -33,7 +33,7 @@ export class ProductController {
   @Get()
   async findAllPaginate(
     @Query(new QueryTransformPipe()) pagination: PaginationDto,
-    @Query(new QueryTransformPipe()) query: QueryParamsDto
+    @Query(new QueryTransformPipe()) query: ProductQueryParamsDto
   ) {
     return await this.productService.findAllPaginated(pagination, query);
   }

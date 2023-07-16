@@ -34,10 +34,13 @@ type Address {
   street       String
   streetNumber String
   complement   String
+  localityId   String?
 }
 
 model Client {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  email       String    @unique
   phoneNumber String
   password    String
   addresses   Address[]
@@ -50,14 +53,25 @@ model Client {
   @@map("bonari-pizzaria-dev-clients")
 }
 
+type ClientType {
+  id          String?
+  email       String?
+  phoneNumber String
+  name        String
+  addresses   Address[]
+  createdDate DateTime
+  updatedDate DateTime
+}
+
 model Order {
   id            String          @id @default(auto()) @map("_id") @db.ObjectId
   orderId       Int
   startDate     DateTime        @default(now())
   updateDate    DateTime?
   status        String
-  client        Client          @relation(fields: [clientId], references: [id])
-  clientId      String          @db.ObjectId
+  clientInfo    ClientType
+  client        Client?         @relation(fields: [clientId], references: [id])
+  clientId      String?         @db.ObjectId
   items         Item[]
   address       Address?
   isDelivery    Boolean         @default(true)
@@ -187,6 +201,14 @@ model AccessToken {
   updatedDate  DateTime
 
   @@map("bonari-pizzaria-dev-access-token")
+}
+
+model Locality {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name  String
+  price Float
+
+  @@map("bonari-pizzaria-dev-locality")
 }
 
 enum RoleUser {

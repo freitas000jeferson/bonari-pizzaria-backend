@@ -5,17 +5,17 @@ import {
   makePaginationDBHelper,
 } from 'src/common/helpers/pagination';
 import {
-  UserQueryParamsDto as QueryParamsDto,
+  ClientQueryParamsDto,
   makeWhereEmailAndPhoneNumber,
-} from '../dto/user-query-params.dto';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { UpdateUserDto } from '../dto/update-user.dto';
+} from '../dto/client-query-params.dto';
+import { CreateClientDto } from '../dto/create-client.dto';
+import { UpdateClientDto } from '../dto/update-client.dto';
 
 @Injectable()
-export class UserRepository {
+export class ClientRepository {
   private repository;
   constructor(private readonly prismaService: PrismaService) {
-    this.repository = this.prismaService.user;
+    this.repository = this.prismaService.client;
   }
 
   async findById(id: string) {
@@ -32,12 +32,14 @@ export class UserRepository {
         name: true,
         phoneNumber: true,
         email: true,
-        role: true,
-        isEnable: true,
+        addresses: true,
       },
     });
   }
-  async findAllPagineted(pagination: PaginationDto, query: QueryParamsDto) {
+  async findAllPagineted(
+    pagination: PaginationDto,
+    query: ClientQueryParamsDto
+  ) {
     const results = await this.repository.findMany({
       ...makePaginationDBHelper(pagination),
       where: {
@@ -59,25 +61,25 @@ export class UserRepository {
       totalItems,
     };
   }
-  async count(query: QueryParamsDto) {
+  async count(query: ClientQueryParamsDto) {
     return await this.repository.count({
       where: {
         ...makeWhereEmailAndPhoneNumber(query),
       },
     });
   }
-  async find(query: QueryParamsDto) {
+  async find(query: ClientQueryParamsDto) {
     return await this.repository.findFirst({
       where: { ...makeWhereEmailAndPhoneNumber(query) },
     });
   }
-  async create(data: CreateUserDto) {
+  async create(data: CreateClientDto) {
     const date = new Date().toISOString();
     data.createdDate = date;
     data.updatedDate = date;
     return await this.repository.create({ data });
   }
-  async update(id: string, data: UpdateUserDto) {
+  async update(id: string, data: UpdateClientDto) {
     const date = new Date().toISOString();
     data.updatedDate = date;
     return await this.repository.update({ where: { id }, data });

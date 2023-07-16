@@ -8,7 +8,7 @@ import { ApiSuccessResponse } from 'src/common/dtos/api-success-response.dto';
 import { exceptionMessages } from 'src/common/exceptions/exceptions-messages';
 
 import { CreateProductDto } from '../dto/create-product.dto';
-import { QueryParamsDto } from '../dto/query-params.dto';
+import { ProductQueryParamsDto } from '../dto/product-query-params.dto';
 import { UpdateProductDto } from '../dto/update-product.dto';
 import { ProductRepository } from '../repositories/product.repository';
 import { Product } from 'src/common/entities/product.entity';
@@ -56,7 +56,10 @@ export class ProductService {
       throw new InternalServerErrorException(error);
     }
   }
-  async findAllPaginated(pagination: PaginationDto, query: QueryParamsDto) {
+  async findAllPaginated(
+    pagination: PaginationDto,
+    query: ProductQueryParamsDto
+  ) {
     try {
       const { results, totalItems } =
         await this.productRepository.findAllPagineted(pagination, query);

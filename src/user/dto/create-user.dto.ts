@@ -7,7 +7,4 @@ export class CreateUserDto extends User {
   email: string;
   password: string;
   role: RoleUserEnum;
-  isEnable: boolean;
-  createdDate: string | Date;
-  updatedDate: string | Date;
 }

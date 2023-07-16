@@ -7,4 +7,5 @@ export class Address implements Prisma.AddressCreateInput {
   street: string;
   streetNumber: string;
   complement: string;
+  localityId?: string;
 }
